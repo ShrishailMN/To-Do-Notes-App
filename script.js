@@ -1,71 +1,65 @@
-// To-Do List Functionality
+// Task and Notes arrays to store data
+let tasks = [];
+let notes = [];
+
+// Function to add a task
 function addTask() {
-    const taskInput = document.getElementById("taskInput");
-    const taskList = document.getElementById("taskList");
-  
-    if (taskInput.value.trim() === "") return;
-  
-    const li = document.createElement("li");
-    li.innerHTML = `${taskInput.value} <button onclick="deleteTask(this)">Delete</button>`;
-    taskList.appendChild(li);
-  
-    saveTasks();
-    taskInput.value = "";
-  }
-  
-  function deleteTask(taskItem) {
-    taskItem.parentNode.remove();
-    saveTasks();
-  }
-  
-  function saveTasks() {
-    const tasks = Array.from(document.querySelectorAll("#taskList li")).map(li => li.textContent.replace("Delete", "").trim());
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }
-  
-  function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const taskList = document.getElementById("taskList");
-  
-    tasks.forEach(task => {
-      const li = document.createElement("li");
-      li.innerHTML = `${task} <button onclick="deleteTask(this)">Delete</button>`;
-      taskList.appendChild(li);
+    const taskInput = document.getElementById("task-input");
+    const taskText = taskInput.value.trim();
+    if (taskText) {
+        tasks.push(taskText);
+        renderTasks();
+        taskInput.value = "";
+    }
+}
+
+// Function to delete a task
+function deleteTask(index) {
+    tasks.splice(index, 1);
+    renderTasks();
+}
+
+// Function to render tasks
+function renderTasks() {
+    const taskList = document.getElementById("task-list");
+    taskList.innerHTML = "";
+    tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            ${task}
+            <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
+        `;
+        taskList.appendChild(li);
     });
-  }
-  
-  // Notes Functionality
-  function saveNote() {
-    const noteInput = document.getElementById("noteInput");
-    const savedNotes = document.getElementById("savedNotes");
-  
-    if (noteInput.value.trim() === "") return;
-  
-    const p = document.createElement("p");
-    p.textContent = noteInput.value;
-    savedNotes.appendChild(p);
-  
-    saveNotesToLocal();
-    noteInput.value = "";
-  }
-  
-  function saveNotesToLocal() {
-    const notes = Array.from(document.querySelectorAll("#savedNotes p")).map(note => note.textContent);
-    localStorage.setItem("notes", JSON.stringify(notes));
-  }
-  
-  function loadNotes() {
-    const notes = JSON.parse(localStorage.getItem("notes")) || [];
-    const savedNotes = document.getElementById("savedNotes");
-  
-    notes.forEach(note => {
-      const p = document.createElement("p");
-      p.textContent = note;
-      savedNotes.appendChild(p);
+}
+
+// Function to add a note
+function addNote() {
+    const noteInput = document.getElementById("note-input");
+    const noteText = noteInput.value.trim();
+    if (noteText) {
+        notes.push(noteText);
+        renderNotes();
+        noteInput.value = "";
+    }
+}
+
+// Function to delete a note
+function deleteNote(index) {
+    notes.splice(index, 1);
+    renderNotes();
+}
+
+// Function to render notes
+function renderNotes() {
+    const noteList = document.getElementById("note-list");
+    noteList.innerHTML = "";
+    notes.forEach((note, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            ${note}
+            <button class="delete-btn" onclick="deleteNote(${index})">Delete</button>
+        `;
+        noteList.appendChild(li);
     });
-  }
-  
-  // Initialize the app
-  loadTasks();
-  loadNotes();
-  
+}

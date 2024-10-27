@@ -4,29 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
     <title>To-Do List & Notes</title>
 </head>
 <body>
     <div class="container">
-        <h1>To-Do List & Notes</h1>
-        
-        <!-- To-Do Section -->
-        <div class="section" id="todo-section">
-            <h2>Tasks</h2>
-            <input type="text" id="task-input" placeholder="Add a new task...">
-            <button onclick="addTask()">Add Task</button>
-            <ul id="task-list"></ul>
-        </div>
-        
-        <!-- Notes Section -->
-        <div class="section" id="notes-section">
-            <h2>Notes</h2>
-            <textarea id="note-input" placeholder="Write a new note..."></textarea>
-            <button onclick="addNote()">Add Note</button>
-            <ul id="note-list"></ul>
-        </div>
+        <h1>To-Do List & Notes App</h1>
+        <a href="tasks.html" class="button">Go to Tasks</a>
+        <a href="notes.html" class="button">Go to Notes</a>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
 </body>
 </html>

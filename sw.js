@@ -8,16 +8,10 @@ self.addEventListener("install", event => {
         "./style.css",
         "./script-tasks.js",
         "./script-notes.js",
-        "./manifest.json"
+        "./manifest.json",
+        "./icon-192x192.webp",
+        "./icon-512x512.webp"
       ]);
-    })
-  );
-});
-
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
     })
   );
 });

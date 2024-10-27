@@ -9,8 +9,7 @@ self.addEventListener("install", event => {
         "./script-tasks.js",
         "./script-notes.js",
         "./manifest.json",
-        "./icon-192x192.webp",
-        "./icon-512x512.webp"
+        "./icon.webp" // Add the webp icon here
       ]);
     })
   );
